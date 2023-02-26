@@ -7,6 +7,9 @@ import Dashboard from "./Scenes/Dashboard";
 import { Route, Routes } from 'react-router-dom'
 import UserManagement from "./Scenes/UserManagement/UserManagement";
 import AdminLogin from "./Scenes/Signin/Signin";
+import JobManagement from "./Scenes/JobManagement/JobManagement";
+import CategoryManagement from "./Scenes/CategoryMangement/CategoryManagement";
+import DepartmentManagement from "./Scenes/DepartmentManagement/DepartmentManagement";
 
 
 
@@ -27,8 +30,11 @@ function App() {
           <main className="content">
             <Topbar/>
             <Routes>
-              <Route path="/dashboard" element={<Dashboard/>}/>
+              <Route path="/" element={<Dashboard/>}/>
               <Route path="/user-management" element={<UserManagement/>}/>
+              <Route path="/job-management" element={<JobManagement/>}/>
+              <Route path="/category-management" element={<CategoryManagement/>}/>
+              <Route path="/department-management" element={<DepartmentManagement/>}/>
             </Routes>
           </main>
         </div> ) : (<div className='content'>

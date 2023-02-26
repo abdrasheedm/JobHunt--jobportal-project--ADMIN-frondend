@@ -1,10 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../Data]/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../Conponents/Header";
 import axios from "../../axios";
 import { useEffect, useState } from "react";
@@ -15,7 +11,7 @@ import { Button } from '@mui/material';
 
 
 
-function UserManagement() {
+function JobManagement() {
   
 
   const theme = useTheme();
@@ -24,62 +20,64 @@ function UserManagement() {
 
   let token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem("token")) : null
 
-  const [users, setUsers] = useState([])
-  const fetchUsers = async () => {
-    axios.get('all-user/', {
+  const [jobs, setJobs] = useState([])
+  const fetchJobs = async () => {
+    axios.get('all-jobs/', {
       headers : {
         Authorization : `Bearer ${token.access}`
       }
     }).then((res) => {
-      setUsers(res.data)
+      setJobs(res.data)
     })
   }
 
   const [isBlocked, setIsBlocked] = useState(false)
   const blockUnBlock = (id) => {
-    axios.post(`user-block-unblock-view/?user_id=${id}`, {
-      headers : {
-        Authorization : `Bearer ${token.access}`
-      }
-    }).then((res) => {
+    axios.post(`job-block-unblock-view/?job_id=${id}`, {
+        headers : {
+          Authorization : `Bearer ${token.access}`
+        }
+      }).then((res) => {
       console.log(res.data);
       setIsBlocked(!isBlocked)
     })
   }
 
   useEffect(() => {
-    fetchUsers()
+    fetchJobs()
   }, [isBlocked])
   
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "first_name",
-      headerName: "First Name",
+      field: "job_title",
+      headerName: "Job Title",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "last_name",
-      headerName: "Last Name",
+      field: "company_id",
+      headerName: "Company Name",
       flex: 1,
       cellClassName: "name-column--cell",
+      valueGetter : (tableData) => tableData.row.company_id.company_name,
     },
     {
-      field: "phone_number",
-      headerName: "Phone Number",
+      field: "category",
+      headerName: "Category",
       flex: 1,
+      valueGetter : (tableData) => tableData.row.category.category_name,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "department",
+      headerName: "Department",
       flex: 1,
+      valueGetter : (tableData) => tableData.row.department.department_name,
     },
     {
-      field: "user_type",
-      headerName: "User Type",
+      field: "job_type",
+      headerName: "Job Type",
       flex: 1,
-      valueGetter : (tableData) => tableData.row.user_type.user_type_name,
     },
     {
       field: "is_active",
@@ -122,7 +120,7 @@ function UserManagement() {
   
   return (
     <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
+      <Header title="JOBS" subtitle="Managing JOBS" />
       <Box
         m="40px 20px 0 20px"
         height="75vh"
@@ -152,11 +150,11 @@ function UserManagement() {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={users} columns={columns} />
+        <DataGrid checkboxSelection rows={jobs} columns={columns} />
       </Box>
     </Box>
   );
 };
 
 
-export default UserManagement
+export default JobManagement

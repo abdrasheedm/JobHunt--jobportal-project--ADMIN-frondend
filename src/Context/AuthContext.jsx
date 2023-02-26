@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
                 if(res.data.user.user_type==="Admin") {
                     localStorage.setItem("admin", JSON.stringify(res.data))
                     localStorage.setItem("token", JSON.stringify(res.data.token))
-                    navigate('/dashboard')
+                    window.location.reload()
                 }
                 else{
                     setErrorMsg("You are not an Admin")

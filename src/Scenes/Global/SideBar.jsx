@@ -12,7 +12,8 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import LiveTvOutlinedIcon from '@mui/icons-material/LiveTvOutlined';
-import KeyboardOutlinedIcon from '@mui/icons-material/KeyboardOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import ClassIcon from '@mui/icons-material/Class';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -118,23 +119,23 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Articles"
-              to="/articles"
+              title="Jobs"
+              to="/job-management"
               icon={<ArticleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Text Editor"
-              to="/editor"
-              icon={<KeyboardOutlinedIcon />}
+              title="Category"
+              to="/category-management"
+              icon={<CategoryOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Events"
-              to="/events"
-              icon={<LiveTvOutlinedIcon />}
+              title="Departments"
+              to="/department-management"
+              icon={<ClassIcon />}
               selected={selected}
               setSelected={setSelected}
             />
