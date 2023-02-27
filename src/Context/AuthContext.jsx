@@ -19,8 +19,8 @@ export const AuthProvider = ({ children }) => {
   );
 
   const navigate = useNavigate()
+  const [isUnread, setIsUnread] = useState(false)
 
-    console.log('hai');
     const AdminLogin = async (email, password) => {
         await axios.post("user/signin/", {email, password}).then((res) => {
             if (res.data.token) {
@@ -58,7 +58,9 @@ export const AuthProvider = ({ children }) => {
 
     let contextData = {
         AdminLogin : AdminLogin,
-        errorMsg : errorMsg
+        errorMsg : errorMsg,
+        isUnread : isUnread,
+        setIsUnread : setIsUnread
     }
 
     return (

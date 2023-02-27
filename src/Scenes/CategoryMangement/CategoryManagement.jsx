@@ -35,8 +35,7 @@ function CategoryManagement() {
 
   const removeCategory = (id) => {
     axios.post(`remove-category-view/?cat_id=${id}`).then((res) => {
-      console.log(res.data);
-      setIsDeleted(!isDeleted)
+      setIsDeleted(!isDeleted);
     });
   };
 
@@ -64,8 +63,8 @@ function CategoryManagement() {
               variant="contained"
               onClick={() => {
                 setIsModal(true);
-                setModalType("edit")
-                setCatId(params.row.id)
+                setModalType("edit");
+                setCatId(params.row.id);
               }}
             >
               Edit
@@ -88,6 +87,7 @@ function CategoryManagement() {
       <Header title="Categories" subtitle="Managing Categories" />
       <div className="flex justify-end mr-10">
         <Button
+          variant="contained"
           sx={{
             color: "white",
             backgroundColor: colors.blueAccent[700],

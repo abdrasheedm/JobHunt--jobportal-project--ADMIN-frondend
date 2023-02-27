@@ -26,11 +26,7 @@ function UserManagement() {
 
   const [users, setUsers] = useState([])
   const fetchUsers = async () => {
-    axios.get('all-user/', {
-      headers : {
-        Authorization : `Bearer ${token.access}`
-      }
-    }).then((res) => {
+    axios.get('all-user/').then((res) => {
       setUsers(res.data)
     })
   }

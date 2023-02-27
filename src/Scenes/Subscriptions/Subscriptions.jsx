@@ -11,7 +11,7 @@ import { Button } from '@mui/material';
 
 
 
-function JobManagement() {
+function Subsciptions() {
   
 
   const theme = useTheme();
@@ -20,60 +20,59 @@ function JobManagement() {
 
   let token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem("token")) : null
 
-  const [jobs, setJobs] = useState([])
-  const fetchJobs = async () => {
-    axios.get('all-jobs/').then((res) => {
-      setJobs(res.data)
-    })
-  }
-
-  const [isBlocked, setIsBlocked] = useState(false)
-  const blockUnBlock = (id) => {
-    axios.post(`job-block-unblock-view/?job_id=${id}`, {
-        headers : {
-          Authorization : `Bearer ${token.access}`
-        }
-      }).then((res) => {
+  const [subscriptions, setSubscriptions] = useState([])
+  const fetchSubscriptionDetails = async () => {
+    axios.get('subsciption-details/').then((res) => {
+      setSubscriptions(res.data)
       console.log(res.data);
-      setIsBlocked(!isBlocked)
     })
   }
 
   useEffect(() => {
-    fetchJobs()
-  }, [isBlocked])
+    fetchSubscriptionDetails()
+  }, [])
   
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "job_title",
-      headerName: "Job Title",
+      field: "user",
+      headerName: "Compnay Name",
       flex: 1,
       cellClassName: "name-column--cell",
+      valueGetter : (tableData) => tableData.row.user.company_name,
+
     },
     {
-      field: "company_id",
-      headerName: "Company Name",
+      field: "subscription_type",
+      headerName: "Subscription Type",
       flex: 1,
       cellClassName: "name-column--cell",
-      valueGetter : (tableData) => tableData.row.company_id.company_name,
+      valueGetter : (tableData) => tableData.row.membership.user.membership.title,
     },
     {
-      field: "category",
-      headerName: "Category",
+        field: "price",
+        headerName: "Price",
+        flex: 1,
+        valueGetter : (tableData) => tableData.row.membership.user.membership.price,
+      },
+    {
+      field: "activation_date",
+      headerName: "Activation Date",
       flex: 1,
-      valueGetter : (tableData) => tableData.row.category.category_name,
+      valueGetter : (tableData) => tableData.row.membership.activation_date,
     },
     {
-      field: "department",
-      headerName: "Department",
+      field: "expiry_date",
+      headerName: "Expiry Date",
       flex: 1,
-      valueGetter : (tableData) => tableData.row.department.department_name,
+      valueGetter : (tableData) => tableData.row.membership.expiry_date,
     },
     {
-      field: "job_type",
-      headerName: "Job Type",
+      field: "availabe_jobs",
+      headerName: "Available Jobs",
       flex: 1,
+      valueGetter : (tableData) => tableData.row.membership.user.postable_job_count,
+
     },
     {
       field: "is_active",
@@ -81,42 +80,19 @@ function JobManagement() {
       flex: 1,
       valueGetter : (status) => {
         // console.log(status);
-        if(status.row.is_active == true){
+        if(status.row.membership.user.is_active == true){
           return 'Active'
         }else{
           return 'inactive'
         }
       }
-    },
-    {
-      field: 'actions',
-      headerName: 'Actions',
-      width: 150,
-      renderCell: (params) => {
-        return(
-          <Box>
-            {params.row.is_active ? (<Button
-            sx={{backgroundColor: colors.blueAccent[700]}}
-          variant="contained"
-          onClick={()=> blockUnBlock(params.row.id)}
-        >
-          Block
-        </Button>) : (<Button
-          variant="contained"
-          onClick={()=> blockUnBlock(params.row.id)}
-        >
-          Unblock
-        </Button>)}
-          </Box>
-        )
-      },
-    },
+    }
   ];
 
   
   return (
     <Box m="20px">
-      <Header title="JOBS" subtitle="Managing JOBS" />
+      <Header title="Subscription Details" subtitle="Analysing subscriptions" />
       <Box
         m="40px 20px 0 20px"
         height="75vh"
@@ -146,11 +122,11 @@ function JobManagement() {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={jobs} columns={columns} />
+        <DataGrid checkboxSelection rows={subscriptions} columns={columns} />
       </Box>
     </Box>
   );
 };
 
 
-export default JobManagement
+export default Subsciptions

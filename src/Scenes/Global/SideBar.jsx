@@ -7,11 +7,11 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import PaymentIcon from '@mui/icons-material/Payment';
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import LiveTvOutlinedIcon from '@mui/icons-material/LiveTvOutlined';
+import SchoolIcon from '@mui/icons-material/School';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import ClassIcon from '@mui/icons-material/Class';
 
@@ -106,7 +106,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/dashboard"
+              to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -140,9 +140,16 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              title="Qualifications"
+              to="/qualification-management"
+              icon={<SchoolIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Subscriptions"
+              to="/subscription-details"
+              icon={<PaymentIcon />}
               selected={selected}
               setSelected={setSelected}
             />

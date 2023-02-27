@@ -10,6 +10,9 @@ import AdminLogin from "./Scenes/Signin/Signin";
 import JobManagement from "./Scenes/JobManagement/JobManagement";
 import CategoryManagement from "./Scenes/CategoryMangement/CategoryManagement";
 import DepartmentManagement from "./Scenes/DepartmentManagement/DepartmentManagement";
+import Notification from "./Scenes/Notifications/Notification";
+import QualificationManagement from "./Scenes/QualificationManagement/QualificationManagement";
+import Subsciptions from "./Scenes/Subscriptions/Subscriptions";
 
 
 
@@ -35,6 +38,9 @@ function App() {
               <Route path="/job-management" element={<JobManagement/>}/>
               <Route path="/category-management" element={<CategoryManagement/>}/>
               <Route path="/department-management" element={<DepartmentManagement/>}/>
+              <Route path="/notifications" element={<Notification/>}/>
+              <Route path="/qualification-management" element={<QualificationManagement/>}/>
+              <Route path="/subscription-details" element={<Subsciptions/>}/>
             </Routes>
           </main>
         </div> ) : (<div className='content'>

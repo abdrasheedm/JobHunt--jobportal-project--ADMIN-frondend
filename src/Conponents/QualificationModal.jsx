@@ -5,45 +5,42 @@ import { tokens } from "../theme";
 import { useTheme } from "@emotion/react";
 
 
-function CategoryModal({ visible, onClose, Type, CatId }) {
+function QualificationModal({ visible, onClose, Type, QId }) {
   if(visible){
     document.body.style.overflow = 'hidden';
   } 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-
-
   const token = JSON.parse(localStorage.getItem("token"));
 
 
-  const [categoryName, setCategoryname] = useState("")
+  const [qualificationTitle, setQualificationTitle] = useState("")
 
-  const fetchCategory = () => {
-    axios.get(`single-category-view/?cat_id=${CatId}`).then((res) => {
-      setCategoryname(res.data.category_name)
+  const fetchQualification = () => {
+    axios.get(`single-qualifcation-view/?q_id=${QId}`).then((res) => {
+      setQualificationTitle(res.data.title)
     })
   }
 
-  const handleCategory = (e) => {
-    setCategoryname(e.target.value)
+  const handleTitle = (e) => {
+    setQualificationTitle(e.target.value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = {
-      "category_name" : categoryName
+      "title" : qualificationTitle
     }
 
     if(Type==='add'){
       axios
-      .post("add-category-view/",data)
+      .post("add-qualification-view/",data)
       .then((res) => {
         onClose()
       });
     }
     else{
-      axios.patch(`update-category-view/?cat_id=${CatId}`, data).then((res)=>{
+      axios.patch(`update-qualifcation-view/?q_id=${QId}`, data).then((res)=>{
         onClose()
       })
     }
@@ -52,10 +49,10 @@ function CategoryModal({ visible, onClose, Type, CatId }) {
   };
   useEffect(() => {
     if(Type==="edit"){
-      fetchCategory()
+      fetchQualification()
     }
     else{
-      setCategoryname('')
+      setQualificationTitle('')
     }
   }, [visible])
 
@@ -67,9 +64,9 @@ function CategoryModal({ visible, onClose, Type, CatId }) {
     <div className="bg-gray-900 fixed inset-0 bg-opacity-30 backdrop-blur-sm flex flex-col justify-center items-center">
       <div className="bg-white bg-opacity-30 p-16 rounded-2xl drop-shadow-2xl mb-5">
         {Type === "add" ? (
-          <h1 className="text-center font-bold text-3xl">Add Category</h1>
+          <h1 className="text-center font-bold text-3xl">Add Qualification</h1>
         ) : (
-          <h1 className="text-center font-bold text-3xl">Edit Category</h1>
+          <h1 className="text-center font-bold text-3xl">Edit Qualification</h1>
         )}
 
         <form
@@ -82,16 +79,16 @@ function CategoryModal({ visible, onClose, Type, CatId }) {
             <div className="mb-5">
               <div className="px-5">
                 <label for="firstName" className="block mb-2 text-sm">
-                 Category Name
+                Qualification Title
                 </label>
                 <input
                   type="name"
                   name="categoryName"
                   id="firstName"
-                  placeholder="Enter category Title"
+                  placeholder="Enter Qualification Title"
                   className="w-full px-3 py-2 border rounded-md text-gray-900 dark:border-gray-700 dark:bg-gray-100"
-                  onChange={handleCategory}
-                  value={categoryName}
+                  onChange={handleTitle}
+                  value={qualificationTitle}
                   required
                 />
               </div>
@@ -122,4 +119,4 @@ function CategoryModal({ visible, onClose, Type, CatId }) {
   );
 }
 
-export default CategoryModal;
+export default QualificationModal;

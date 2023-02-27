@@ -1,13 +1,13 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../Conponents/Header";
 import axios from "../../axios";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import DepartmentModal from "../../Conponents/DepartmentModal";
+import QualificationModal from "../../Conponents/QualificationModal";
 
-function DepartmentManagement() {
+function QualificationManagement() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -15,16 +15,16 @@ function DepartmentManagement() {
     ? JSON.parse(localStorage.getItem("token"))
     : null;
 
-  const [departments, setDepartments] = useState([]);
-  const fetchDepartments = async () => {
-    axios.get("all-departments/").then((res) => {
-      setDepartments(res.data);
+  const [qualifications, setQualification] = useState([]);
+  const fetchQualification = async () => {
+    axios.get("job-qualifications-view/").then((res) => {
+      setQualification(res.data);
     });
   };
 
   const [isModal, setIsModal] = useState(false);
   const [modalType, setModalType] = useState("");
-  const [depId, setDepId] = useState();
+  const [QId, setQId] = useState();
 
   const handleOnClose = () => {
     document.body.style.overflow = "unset";
@@ -33,29 +33,21 @@ function DepartmentManagement() {
 
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const removeDepartment = (id) => {
-    axios.get(`remove-department-view/?dep_id=${id}`).then((res) => {
-      setIsDeleted(!isDeleted)
+  const removeQualification = (id) => {
+    axios.get(`remove-qualifcation-view/?q_id=${id}`).then((res) => {
+      setIsDeleted(!isDeleted);
     });
   };
 
   useEffect(() => {
-    fetchDepartments();
+    fetchQualification();
   }, [isModal, isDeleted]);
 
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "category_name",
-      headerName: "Category Name",
-      flex: 1,
-      cellClassName: "name-column--cell",
-      valueGetter : (tableData) => tableData.row.category.category_name,
-
-    },
-    {
-      field: "department_name",
-      headerName: "Depatment Name",
+      field: "title",
+      headerName: "Qualification",
       flex: 1,
       cellClassName: "name-column--cell",
     },
@@ -71,8 +63,8 @@ function DepartmentManagement() {
               variant="contained"
               onClick={() => {
                 setIsModal(true);
-                setModalType("edit")
-                setDepId(params.row.id)
+                setModalType("edit");
+                setQId(params.row.id);
               }}
             >
               Edit
@@ -80,7 +72,7 @@ function DepartmentManagement() {
             <Button
               sx={{ backgroundColor: colors.blueAccent[700] }}
               variant="contained"
-              onClick={() => removeDepartment(params.row.id)}
+              onClick={() => removeQualification(params.row.id)}
             >
               Remove
             </Button>
@@ -92,9 +84,10 @@ function DepartmentManagement() {
 
   return (
     <Box m="20px">
-      <Header title="Departments" subtitle="Managing Departments" />
+      <Header title="Qualifications" subtitle="Managing Qualifications" />
       <div className="flex justify-end mr-10">
         <Button
+          variant="contained"
           sx={{
             color: "white",
             backgroundColor: colors.blueAccent[700],
@@ -105,7 +98,7 @@ function DepartmentManagement() {
             setModalType("add");
           }}
         >
-          Add Department
+          Add Qualification
         </Button>
       </div>
       <Box
@@ -137,16 +130,16 @@ function DepartmentManagement() {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={departments} columns={columns} />
+        <DataGrid checkboxSelection rows={qualifications} columns={columns} />
       </Box>
-      <DepartmentModal
+      <QualificationModal
         visible={isModal}
         onClose={handleOnClose}
         Type={modalType}
-        DepId={depId}
+        QId={QId}
       />
     </Box>
   );
 }
 
-export default DepartmentManagement;
+export default QualificationManagement;
