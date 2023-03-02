@@ -100,7 +100,7 @@ const Sidebar = () => {
               <Box textAlign="center" p="5px">
                 <Typography variant="h5" color={"#ffff"}>
                   The partner that will change your life.
-                </Typography>
+                </Typography> 
               </Box>
             </Box>
           )}

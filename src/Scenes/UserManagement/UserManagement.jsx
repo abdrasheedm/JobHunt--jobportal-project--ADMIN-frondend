@@ -1,14 +1,9 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../Data]/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../Conponents/Header";
 import axios from "../../axios";
 import { useEffect, useState } from "react";
-import { Tune } from "@mui/icons-material";
 import { Button } from '@mui/material';
 
 
@@ -26,7 +21,11 @@ function UserManagement() {
 
   const [users, setUsers] = useState([])
   const fetchUsers = async () => {
-    axios.get('all-user/').then((res) => {
+    axios.get('all-user/', {
+      headers : {
+        Authorization : `Bearer ${token.access}`
+      }
+    }).then((res) => {
       setUsers(res.data)
     })
   }
@@ -38,7 +37,6 @@ function UserManagement() {
         Authorization : `Bearer ${token.access}`
       }
     }).then((res) => {
-      console.log(res.data);
       setIsBlocked(!isBlocked)
     })
   }
@@ -82,8 +80,7 @@ function UserManagement() {
       headerName: "Status",
       flex: 1,
       valueGetter : (status) => {
-        // console.log(status);
-        if(status.row.is_active == true){
+        if(status.row.is_active === true){
           return 'Active'
         }else{
           return 'inactive'

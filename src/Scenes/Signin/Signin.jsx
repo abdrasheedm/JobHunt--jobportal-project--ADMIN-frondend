@@ -1,8 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../Context/AuthContext"
 
 const AdminLogin = () => {
+
+
+  const navigate = useNavigate()
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -35,6 +39,10 @@ const AdminLogin = () => {
       setEmailError("");
     }
   };
+  let token = localStorage.getItem("token") ? localStorage.getItem("token") : null
+  if (token){
+    navigate("/")
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center">

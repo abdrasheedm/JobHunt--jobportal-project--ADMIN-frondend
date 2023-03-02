@@ -1,17 +1,15 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../Conponents/Header";
 import axios from "../../axios";
 import { useEffect, useState } from "react";
-import { Tune } from "@mui/icons-material";
-import { Button } from '@mui/material';
 
 
 
 
 
-function Subsciptions() {
+function Subsciptions() { 
   
 
   const theme = useTheme();
@@ -24,7 +22,6 @@ function Subsciptions() {
   const fetchSubscriptionDetails = async () => {
     axios.get('subsciption-details/').then((res) => {
       setSubscriptions(res.data)
-      console.log(res.data);
     })
   }
 
@@ -72,8 +69,7 @@ function Subsciptions() {
     //   headerName: "Status",
     //   flex: 1,
     //   valueGetter : (status) => {
-    //     // console.log(status);
-    //     if(status.row.membership.user.is_active == true){
+    //     if(status.row.membership.user.is_active == true){ 
     //       return 'Active'
     //     }else{
     //       return 'inactive'

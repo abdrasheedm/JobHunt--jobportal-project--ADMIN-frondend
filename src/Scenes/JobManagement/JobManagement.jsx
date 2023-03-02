@@ -31,7 +31,6 @@ function JobManagement() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setIsBlocked(!isBlocked);
       });
   };
@@ -40,7 +39,6 @@ function JobManagement() {
   const fetchReportedJobs = () => {
     axios.get("reported-jobs/").then((res) => {
       setReportedJobs(res.data);
-      console.log(res.data);
     });
   };
 
@@ -90,7 +88,6 @@ function JobManagement() {
       headerName: "Status",
       flex: 1,
       valueGetter: (status) => {
-        // console.log(status);
         if (status.row.is_active === true) {
           return "Active";
         } else {

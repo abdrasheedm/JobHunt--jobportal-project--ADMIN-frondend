@@ -21,33 +21,34 @@ const Topbar = () => {
   const colorMode = useContext(ColorModeContext);
   const navigate = useNavigate()
 
+  const token = localStorage.getItem("token") ? localStorage.getItem("token") : null
+
   const {isUnread} = useContext(AuthContext)
   const {logoutAdmin} = useContext(AuthContext)
   const [unreadNotification, setUnreadNotification] = useState(0)
   const fetchNotificationCount = () => {
     axios.get('notification-count/').then((res) => {
-      console.log(res.data);
       setUnreadNotification(res.data.count)
     })
   }
 
-  const client = new W3CWebSocket(
-    `${WsURL}admin/`
-  );
+ 
   
   useEffect(() => {
-    console.log("in client");
-    client.onopen = () => {
-      console.log("WebSocket Client Connected");
-    };
-    client.onmessage = (message) => {
-      console.log("connected to web socket");
-      const dataFromServer = JSON.parse(message.data);
-      setUnreadNotification(dataFromServer.count)
-      console.log(dataFromServer.count);
-
-      // toast.success(dataFromServer.notification)
-    };
+    if(token){
+      const client = new W3CWebSocket(
+        `${WsURL}admin/`
+      );
+      client.onopen = () => {
+        console.log("web socket connected")
+      };
+      client.onmessage = (message) => {
+        const dataFromServer = JSON.parse(message.data);
+        setUnreadNotification(dataFromServer.count)
+  
+      };
+    }
+    
   }, [])
 
 

@@ -7,6 +7,7 @@ import { Typography } from "@mui/material";
 import axios from "../../axios";
 import { useState } from "react";
 import AuthContext from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Notification() {
   const theme = useTheme();
@@ -27,7 +28,7 @@ function Notification() {
       setIsUnread(!IsUnread)
     })
   }
-
+const navigate = useNavigate()
   const showDateTime = (dateandtime) => {
     const datetime = new Date(dateandtime);
     const date = datetime.toLocaleDateString();
@@ -56,7 +57,7 @@ function Notification() {
               return (
                 <div className="grid grid-cols-6">
 
-                  <div className="col-span-4">
+                  <div className="col-span-4" onClick={() => navigate(notificaion.url)}>
                     <div className="shadow-xl p-8 my-5 rounded-lg hover:shadow-2xl grid grid-cols-9 justify-between bg-opacity-50 bg-white ">
                       <div className="col-span-2">
                         <img
