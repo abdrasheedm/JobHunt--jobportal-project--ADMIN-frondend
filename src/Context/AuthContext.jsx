@@ -52,12 +52,16 @@ export const AuthProvider = ({ children }) => {
         }).then((res) => {
             localStorage.removeItem("admin")
             localStorage.removeItem("token")
+            console.log(res.data.message);
+            navigate('/')
+            window.location.reload(false)
         })
     }
 
 
     let contextData = {
         AdminLogin : AdminLogin,
+        logoutAdmin : logoutAdmin,
         errorMsg : errorMsg,
         isUnread : isUnread,
         setIsUnread : setIsUnread

@@ -22,6 +22,7 @@ const Topbar = () => {
   const navigate = useNavigate()
 
   const {isUnread} = useContext(AuthContext)
+  const {logoutAdmin} = useContext(AuthContext)
   const [unreadNotification, setUnreadNotification] = useState(0)
   const fetchNotificationCount = () => {
     axios.get('notification-count/').then((res) => {
@@ -93,8 +94,9 @@ const Topbar = () => {
             <SettingsOutlinedIcon />
         </IconButton>
         <IconButton>
-            <PersonOutlinedIcon />
+            <PersonOutlinedIcon onClick={() => logoutAdmin()}/>
         </IconButton>
+      
         </Box>
 
       {/* <IconButton></IconButton> */}

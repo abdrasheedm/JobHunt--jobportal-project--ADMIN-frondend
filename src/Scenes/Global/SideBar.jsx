@@ -14,6 +14,7 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import SchoolIcon from '@mui/icons-material/School';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import ClassIcon from '@mui/icons-material/Class';
+import Logo from '../../assets/Logo.png'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -91,13 +92,14 @@ const Sidebar = () => {
               <img
                   alt="app-logo"
                   width="120px"
-                  src={`/assets/logo.svg`}
-                  style={{ cursor: "pointer"}}
+
+                  src={Logo}
+                  style={{ cursor: "pointer", borderRadius:"50%"}}
                 />
               </Box>
-              <Box textAlign="center">
-                <Typography variant="h5" color={"#53B8D8"}>
-                  Connecting Better.
+              <Box textAlign="center" p="5px">
+                <Typography variant="h5" color={"#ffff"}>
+                  The partner that will change your life.
                 </Typography>
               </Box>
             </Box>

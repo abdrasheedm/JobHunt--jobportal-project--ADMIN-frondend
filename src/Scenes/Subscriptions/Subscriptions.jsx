@@ -47,13 +47,13 @@ function Subsciptions() {
       headerName: "Subscription Type",
       flex: 1,
       cellClassName: "name-column--cell",
-      valueGetter : (tableData) => tableData.row.membership.user.membership.title,
+      valueGetter : (tableData) => tableData.row.membership.membership.title,
     },
     {
         field: "price",
         headerName: "Price",
         flex: 1,
-        valueGetter : (tableData) => tableData.row.membership.user.membership.price,
+        valueGetter : (tableData) => tableData.row.membership.membership.price,
       },
     {
       field: "activation_date",
@@ -67,26 +67,19 @@ function Subsciptions() {
       flex: 1,
       valueGetter : (tableData) => tableData.row.membership.expiry_date,
     },
-    {
-      field: "availabe_jobs",
-      headerName: "Available Jobs",
-      flex: 1,
-      valueGetter : (tableData) => tableData.row.membership.user.postable_job_count,
-
-    },
-    {
-      field: "is_active",
-      headerName: "Status",
-      flex: 1,
-      valueGetter : (status) => {
-        // console.log(status);
-        if(status.row.membership.user.is_active == true){
-          return 'Active'
-        }else{
-          return 'inactive'
-        }
-      }
-    }
+    // {
+    //   field: "is_active",
+    //   headerName: "Status",
+    //   flex: 1,
+    //   valueGetter : (status) => {
+    //     // console.log(status);
+    //     if(status.row.membership.user.is_active == true){
+    //       return 'Active'
+    //     }else{
+    //       return 'inactive'
+    //     }
+    //   }
+    // }
   ];
 
   
