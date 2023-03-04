@@ -14,6 +14,7 @@ import Notification from "./Scenes/Notifications/Notification";
 import QualificationManagement from "./Scenes/QualificationManagement/QualificationManagement";
 import Subsciptions from "./Scenes/Subscriptions/Subscriptions";
 import AdminPrivateRoute from "./Routes/AuthorisedRoutes";
+import NotFoundPage from "./Scenes/404/PageNotFound";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -32,6 +33,7 @@ function App() {
               <main className="content">
                 <Routes>
                 <Route path="/signin" element={<AdminLogin />} />
+                {/* <Route path="/*" element={<NotFoundPage />} /> */}
                 </Routes>
                 <Topbar />
 

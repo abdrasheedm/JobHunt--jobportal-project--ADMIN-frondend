@@ -46,7 +46,7 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white bg-opacity-80 p-10 rounded-lg shadow-2xl">
+      <div className="bg-white bg-opacity-80 p-10 rounded-lg shadow-2xl backdrop-blur-sm">
         <h2 className="text-3xl font-bold mb-6 text-gray-900">Log in to Job Hunt admin</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

@@ -1,14 +1,16 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
+import { BASEURL } from "../Constants";
 
 const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(localStorage.getItem('token') ? true : false)
 
-  let [token] = useState(() =>
+  let [token, setToken] = useState(() =>
     localStorage.getItem("token")
       ? JSON.parse(localStorage.getItem("token"))
       : null
@@ -38,9 +40,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   let logoutAdmin = () => {
-    if (!token) {
-      return;
-    }
     axios
       .post(
         "user/logout/",
@@ -59,6 +58,49 @@ export const AuthProvider = ({ children }) => {
 
       });
   };
+
+
+  let updateToken = async () => {
+   
+    let response = await fetch(`${BASEURL}/api/token/refresh/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ refresh: token?.refresh }),
+    });
+    let data = await response.json();
+    if (response.status === 200) {
+      setToken(data);
+      localStorage.setItem("token", JSON.stringify(data));
+    } else {
+      logoutAdmin();
+    }
+
+    if (loading) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+  
+    if (loading) {
+      updateToken();
+    }
+
+  
+
+  let fourMinute = 1000 * 60 * 4;
+  let interval = setInterval(() => {
+    if (token) {
+      console.log('called');
+      updateToken();
+    }
+  }, fourMinute);
+  return () => clearInterval(interval);
+}, [token, loading]);
+
+
 
   let contextData = {
     AdminLogin: AdminLogin,
